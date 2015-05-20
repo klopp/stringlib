@@ -6,7 +6,6 @@
  */
 
 #include <stdlib.h>
-#include <time.h>
 
 char * rnd_string( char * string, size_t size )
 {
