@@ -20,7 +20,7 @@ string sclr( string s )
 
 string snewn( size_t n )
 {
-    string s = malloc( sizeof(struct _string), 1 );
+    string s = malloc( sizeof(struct _string) );
     if( !s ) return NULL;
     s->str = calloc( sizeof(char), n + 1 );
     if( !s->str )
