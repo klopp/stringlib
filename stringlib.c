@@ -7,7 +7,6 @@
 
 #include "stringlib.h"
 #include <stdarg.h>
-#include <assert.h>
 
 string sclr( string s )
 {
