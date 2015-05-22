@@ -222,7 +222,7 @@ string scatc( string dest, const char * src )
     if( !src ) return dest;
     return _scatc( dest, src, strlen( src ) );
 }
-string scat( string dest, string src )
+string scat( string dest, const string src )
 {
     if( !src ) return dest;
     return _scatc( dest, src->str, src->len );
