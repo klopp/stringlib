@@ -35,13 +35,8 @@ string snewn( size_t n )
 
 void sdel( string s )
 {
-    if( s )
-    {
-        free( s->str );
-        s->str = NULL;
-        s->len = s->bsz = 0;
-        free( s );
-    }
+    free( s->str );
+    free( s );
 }
 
 size_t schomp( string s )
@@ -154,7 +149,7 @@ static string _scatc( string dest, const char * src, size_t sz )
 {
     if( dest->len + sz >= dest->bsz )
     {
-        if( !sexpand( dest, (dest->len + sz) * 2 ) )
+        if( !sexpand( dest, dest->len + (sz * 2) ) )
         {
             return NULL;
         }
@@ -174,7 +169,8 @@ string scatch( string dest, char c )
             return NULL;
         }
     }
-    dest->str[dest->len++] = c;
+    dest->str[dest->len] = c;
+    dest->len++;
     dest->str[dest->len] = 0;
     return dest;
 }
