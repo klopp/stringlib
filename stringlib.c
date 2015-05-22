@@ -111,7 +111,7 @@ string sltrim( string s, size_t n )
     if( s->len > n )
     {
         s->len -= n;
-        memmove( s->str, s->str + n, s->len );
+        memcpy( s->str, s->str + n, s->len );
     }
     else s->len = 0;
     s->str[s->len] = 0;
