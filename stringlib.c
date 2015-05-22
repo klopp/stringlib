@@ -35,8 +35,11 @@ string snewn( size_t n )
 
 void sdel( string s )
 {
-    free( s->str );
-    free( s );
+    if( s )
+    {
+        free( s->str );
+        free( s );
+    }
 }
 
 size_t schomp( string s )
