@@ -244,6 +244,8 @@ string sprint( string src, const char * fmt, ... )
             {
                 break;
             }
+            if( !sexpand( src, src->bsz * 2 ) ) return NULL;
+/*
             else if( len > -1 )
             {
                 if( !sexpand( src, src->bsz * 2 ) ) return NULL;
@@ -252,6 +254,7 @@ string sprint( string src, const char * fmt, ... )
             {
                 return NULL;
             }
+*/
         }
         src->len = len;
     }
