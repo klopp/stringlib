@@ -219,7 +219,7 @@ string sncpy( string dest, const string src, size_t n )
 
 string scatc( string dest, const char * src )
 {
-    if( !src ) return dest;
+    if( !src || !*src ) return dest;
     return _scatc( dest, src, strlen( src ) );
 }
 string scat( string dest, const string src )
