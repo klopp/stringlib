@@ -13,7 +13,7 @@ static const char _b64[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         "abcdefghijklmnopqrstuvwxyz"
         "0123456789+/";
 
-static void _b64_encode_block( const unsigned char in[3], unsigned char out[4],
+static void _b64_encode_block( const unsigned char in[3], unsigned char out[5],
         size_t len )
 {
     out[0] = _b64[in[0] >> 2];
@@ -29,7 +29,7 @@ static void _b64_encode_block( const unsigned char in[3], unsigned char out[4],
 static string _b64_encode( size_t insize, int (*b64_getc)( void *data ),
         void * data/*, const char * prefix */)
 {
-    unsigned char in[3], out[4];
+    unsigned char in[3], out[5] = { 0 };
     size_t i, blocksout = 0;
     int c;
     string ret;
