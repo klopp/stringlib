@@ -7,6 +7,14 @@
 
 #include "stringlib.h"
 
+size_t size_splitted( char ** splitted )
+{
+    size_t idx = 0;
+    while( splitted[idx] )
+        idx++;
+    return idx;
+}
+
 char ** split( const char * s, const char * separators )
 {
     char * token;

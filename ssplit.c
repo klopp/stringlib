@@ -16,6 +16,14 @@ string * ssplit( const string s, const char * separators )
 
 #endif
 
+size_t ssize_splitted( string * splitted )
+{
+    size_t idx = 0;
+    while( splitted[idx] )
+        idx++;
+    return idx;
+}
+
 string * ssplitc( const char * s, const char * separators )
 {
 

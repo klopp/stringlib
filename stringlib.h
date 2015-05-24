@@ -27,6 +27,7 @@ size_t chomp( char * s );
 char * rnd_string( char * s, size_t size );
 char ** split( const char * s, const char * separators );
 void free_splitted( char ** splitted );
+size_t size_splitted( char ** splitted );
 char * join( char ** splitted, const char * separator );
 
 #define STR_DEFAULT_LEN 128
@@ -142,6 +143,7 @@ size_t sfgets( string src, FILE * fin );
 string sexpand( string s, size_t sz );
 
 string * ssplitc( const char * s, const char * separators );
+size_t ssize_splitted( string * splitted );
 void sfree_splitted( string * splitted );
 string sjoin( string * splitted, const char * separator );
 string sjoinc( char ** splitted, const char * separator );
