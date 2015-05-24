@@ -13,6 +13,8 @@
  */
 #include "../klib/config.h"
 
+#define STR_K_EXPAND    1.5
+
 #include <string.h>
 #include <ctype.h>
 #include <stdlib.h>

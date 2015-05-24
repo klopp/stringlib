@@ -139,9 +139,8 @@ string sexpand( string s, size_t sz )
 {
     if( s && sz > s->bsz )
     {
-        char * buf = calloc( sizeof(char), sz + 1 );
+        char * buf = realloc( s->str, sz + 1 );
         if( !buf ) return NULL;
-        memcpy( buf, s->str, s->len );
         free( s->str );
         s->str = buf;
         s->bsz = sz;
@@ -153,7 +152,7 @@ static string _scatc( string dest, const char * src, size_t sz )
 {
     if( dest->len + sz >= dest->bsz )
     {
-        if( !sexpand( dest, dest->len + (sz * 2) ) )
+        if( !sexpand( dest, dest->len + (sz * STR_K_EXPAND) ) )
         {
             return NULL;
         }
@@ -168,7 +167,7 @@ string scatch( string dest, char c )
 {
     if( dest->len + 1 >= dest->bsz )
     {
-        if( !sexpand( dest, (dest->len * 2) ) )
+        if( !sexpand( dest, (dest->len * STR_K_EXPAND) ) )
         {
             return NULL;
         }
@@ -183,7 +182,7 @@ static string _scpyc( string dest, const char * src, size_t sz )
 {
     if( sz >= dest->bsz )
     {
-        if( !sexpand( dest, sz * 2 ) )
+        if( !sexpand( dest, sz * STR_K_EXPAND ) )
         {
             return NULL;
         }
@@ -245,7 +244,7 @@ string sprint( string src, const char * fmt, ... )
             {
                 break;
             }
-            if( !sexpand( src, src->bsz * 2 ) ) return NULL;
+            if( !sexpand( src, src->bsz * STR_K_EXPAND ) ) return NULL;
 /*
             else if( len > -1 )
             {
@@ -276,7 +275,7 @@ size_t sfgets( string src, FILE * fin )
             src->len = len;
             if( src->str[len - 1] != '\n' && !feof( fin ) )
             {
-                if( !sexpand( src, src->len * 2 ) ) return src->len;
+                if( !sexpand( src, src->len * STR_K_EXPAND ) ) return src->len;
                 last = len;
                 continue;
             }
