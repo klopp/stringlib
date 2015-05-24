@@ -21,7 +21,7 @@ char * rnd_string( char * string, size_t size )
 
     for( i = 0; i < size - 1; i++ )
     {
-        string[i] = _letters[rand() % sizeof(_letters)];
+        string[i] = _letters[rand() % (sizeof(_letters)-1)];
     }
     string[i] = 0;
     return string;
