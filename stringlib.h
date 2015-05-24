@@ -24,7 +24,10 @@ extern "C"
 #endif
 
 size_t chomp( char * s );
-char * rnd_string( char * string, size_t size );
+char * rnd_string( char * s, size_t size );
+char ** split( const char * s, const char * separators );
+void free_splitted( char ** splitted );
+char * join( char ** splitted, const char * separator );
 
 #define STR_DEFAULT_LEN 128
 
@@ -77,6 +80,7 @@ char sat( const string src, size_t at );
 string sset( string src, size_t at, char c );
 int scmp( const string a, const string b );
 int scasemp( const string a, const string b );
+string * ssplit( const string s, const char * separators );
 #else
 # define snew() snewn((STR_DEFAULT_LEN))
 # define slen( s ) (s)->len
@@ -85,6 +89,7 @@ int scasemp( const string a, const string b );
 # define sset( s, at, c ) ( (at) > (s)->len ? (void)0 : (s)->str[(at)] = c )
 # define scmp( a, b ) scmpc( (a), (b)->str )
 # define scasemp( a, b ) scasempc( (a), (b)->str )
+# define ssplit( s, separators ) ssplitc( (s), (separators) )
 #endif
 
 size_t schomp( string s );
@@ -135,6 +140,11 @@ size_t sfgets( string src, FILE * fin );
  * sexpand() expand internal string buffer to new size
  */
 string sexpand( string s, size_t sz );
+
+string * ssplitc( const char * s, const char * separators );
+void sfree_splitted( string * splitted );
+string sjoin( string * splitted, const char * separator );
+string sjoinc( char ** splitted, const char * separator );
 
 #ifdef __cplusplus
 }
