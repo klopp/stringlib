@@ -54,6 +54,7 @@ size_t schomp( string s )
 }
 
 #if defined(DEBUG)
+
 string snew( void )
 {
     return snewn( STR_DEFAULT_LEN );
@@ -315,7 +316,7 @@ string xscat( string dest, ... )
     src = va_arg( ap, string );
     while( src )
     {
-        if( !scat( dest, src ) )
+        if( !_scatc( dest, src->str, src->len ) )
         {
             va_end( ap );
             return NULL;
@@ -334,7 +335,7 @@ string xscatc( string dest, ... )
     src = va_arg( ap, char * );
     while( src )
     {
-        if( !scatc( dest, src ) )
+        if( !_scatc( dest, src, strlen(src) ) )
         {
             va_end( ap );
             return NULL;

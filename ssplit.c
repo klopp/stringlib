@@ -30,9 +30,11 @@ string * ssplitc( const char * s, const char * separators )
     char * token;
     size_t size = 0;
     string * dest = NULL;
-    char * src = strdup( s );
+    size_t ssize = strlen( s ) + 1;
+    char * src = malloc( ssize );
     if( !src ) return NULL;
 
+    memcpy( src, s, ssize );
     token = strtok( src, separators );
     while( token )
     {
@@ -47,7 +49,7 @@ string * ssplitc( const char * s, const char * separators )
         return NULL;
     }
 
-    strcpy( src, s );
+    memcpy( src, s, ssize );
     token = strtok( src, separators );
     size = 0;
     while( token )
