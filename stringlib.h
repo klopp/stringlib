@@ -104,6 +104,8 @@ string scpyc( string dest, const char * src );
  */
 string scat( string dest, const string src );
 string scatc( string dest, const char * src );
+string xscat( string dest, ... );
+string xscatc( string dest, ... );
 /*
  * scatch() add char 'c' to string
  */

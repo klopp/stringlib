@@ -307,3 +307,40 @@ string sfromnstr( const string src, size_t sz )
     return sfromnchar( src->str, sz > src->len ? src->len : sz );
 }
 
+string xscat( string dest, ... )
+{
+    va_list ap;
+    string src;
+    va_start( ap, dest );
+    src = va_arg( ap, string );
+    while( src )
+    {
+        if( !scat( dest, src ) )
+        {
+            va_end( ap );
+            return NULL;
+        }
+        src = va_arg( ap, string );
+    }
+    va_end( ap );
+    return dest;
+}
+
+string xscatc( string dest, ... )
+{
+    va_list ap;
+    char * src;
+    va_start( ap, dest );
+    src = va_arg( ap, char * );
+    while( src )
+    {
+        if( !scatc( dest, src ) )
+        {
+            va_end( ap );
+            return NULL;
+        }
+        src = va_arg( ap, char * );
+    }
+    va_end( ap );
+    return dest;
+}
