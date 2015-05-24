@@ -13,8 +13,6 @@
  */
 #include "../klib/config.h"
 
-#define STR_K_EXPAND    1.5
-
 #include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
@@ -33,6 +31,7 @@ size_t size_splitted( char ** splitted );
 char * join( char ** splitted, const char * separator );
 
 #define STR_DEFAULT_LEN 128
+#define STR_K_EXPAND    1.5
 
 typedef struct _string
 {
@@ -142,7 +141,7 @@ size_t sfgets( string src, FILE * fin );
 /*
  * sexpand() expand internal string buffer to new size
  */
-string sexpand( string s, size_t sz );
+//string sexpand( string s, size_t sz );
 
 string * ssplitc( const char * s, const char * separators );
 size_t ssize_splitted( string * splitted );

@@ -135,15 +135,19 @@ int scasempc( string a, const char * b )
     return strcasecmp( a->str, b );
 }
 
-string sexpand( string s, size_t sz )
+static string sexpand( string s, size_t sz )
 {
-    if( s && sz > s->bsz )
+    if( s )
     {
-        char * buf = realloc( s->str, sz + 1 );
+        char * buf;
+        size_t newsz = sz ? sz : s->bsz;
+        newsz *= STR_K_EXPAND;
+        buf = calloc( newsz + 1, 1 );
         if( !buf ) return NULL;
+        memcpy( buf, s->str, s->len );
         free( s->str );
         s->str = buf;
-        s->bsz = sz;
+        s->bsz = newsz;
     }
     return s;
 }
@@ -152,7 +156,7 @@ static string _scatc( string dest, const char * src, size_t sz )
 {
     if( dest->len + sz >= dest->bsz )
     {
-        if( !sexpand( dest, dest->len + (sz * STR_K_EXPAND) ) )
+        if( !sexpand( dest, dest->bsz + sz ) )
         {
             return NULL;
         }
@@ -167,7 +171,7 @@ string scatch( string dest, char c )
 {
     if( dest->len + 1 >= dest->bsz )
     {
-        if( !sexpand( dest, (dest->len * STR_K_EXPAND) ) )
+        if( !sexpand( dest, dest->bsz + 1 ) )
         {
             return NULL;
         }
@@ -182,7 +186,7 @@ static string _scpyc( string dest, const char * src, size_t sz )
 {
     if( sz >= dest->bsz )
     {
-        if( !sexpand( dest, sz * STR_K_EXPAND ) )
+        if( !sexpand( dest, sz ) )
         {
             return NULL;
         }
@@ -244,17 +248,17 @@ string sprint( string src, const char * fmt, ... )
             {
                 break;
             }
-            if( !sexpand( src, src->bsz * STR_K_EXPAND ) ) return NULL;
-/*
-            else if( len > -1 )
-            {
-                if( !sexpand( src, src->bsz * 2 ) ) return NULL;
-            }
-            else
-            {
-                return NULL;
-            }
-*/
+            if( !sexpand( src, 0 ) ) return NULL;
+            /*
+             else if( len > -1 )
+             {
+             if( !sexpand( src, src->bsz * 2 ) ) return NULL;
+             }
+             else
+             {
+             return NULL;
+             }
+             */
         }
         src->len = len;
     }
@@ -275,7 +279,7 @@ size_t sfgets( string src, FILE * fin )
             src->len = len;
             if( src->str[len - 1] != '\n' && !feof( fin ) )
             {
-                if( !sexpand( src, src->len * STR_K_EXPAND ) ) return src->len;
+                if( !sexpand( src, 0 ) ) return src->len;
                 last = len;
                 continue;
             }
@@ -334,7 +338,7 @@ string xscatc( string dest, ... )
     src = va_arg( ap, char * );
     while( src )
     {
-        if( !_scatc( dest, src, strlen(src) ) )
+        if( !_scatc( dest, src, strlen( src ) ) )
         {
             va_end( ap );
             return NULL;
