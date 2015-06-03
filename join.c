@@ -20,7 +20,7 @@ char * join( char ** splitted, const char * separator )
         idx++;
     }
 
-    dest = malloc( size + 1 );
+    dest = Malloc( size + 1 );
     if( !dest ) return NULL;
 
     *dest = 0;

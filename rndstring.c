@@ -5,7 +5,7 @@
  *      Author: Vsevolod Lutovinov <klopp@yandex.ru>
  */
 
-#include <stdlib.h>
+#include "stringlib.h"
 
 char * rnd_string( char * string, size_t size )
 {
@@ -15,7 +15,7 @@ char * rnd_string( char * string, size_t size )
 
     if( !string )
     {
-        string = malloc( size + 1 );
+        string = Malloc( size + 1 );
         if( !string ) return NULL;
     }
 

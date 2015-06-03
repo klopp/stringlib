@@ -13,9 +13,8 @@
  */
 #include "../klib/config.h"
 
-#include <string.h>
 #include <ctype.h>
-#include <stdlib.h>
+#include <string.h>
 #include <stdio.h>
 
 #ifdef __cplusplus
@@ -59,10 +58,9 @@ string sfromnchar( const char * src, size_t sz );
  */
 string sclr( string s );
 /*
- * sdel() delete string
+ * sdel()       delete string
  */
 void sdel( string src );
-
 /*
  * snew()       create new string with default buffer size
  * slen()       return string length

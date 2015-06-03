@@ -21,7 +21,7 @@ char ** split( const char * s, const char * separators )
     size_t size = 0;
     char ** dest = NULL;
     size_t ssize = strlen(s) + 1;
-    char * src = malloc( ssize );
+    char * src = Malloc( ssize );
     if( !src ) return NULL;
 
     memcpy( src, s, ssize );
@@ -32,10 +32,10 @@ char ** split( const char * s, const char * separators )
         token = strtok( NULL, separators );
     }
 
-    dest = malloc( sizeof(char *) * (size + 1) );
+    dest = Malloc( sizeof(char *) * (size + 1) );
     if( !dest )
     {
-        free( src );
+        Free( src );
         return NULL;
     }
 
@@ -44,15 +44,15 @@ char ** split( const char * s, const char * separators )
     size = 0;
     while( token )
     {
-        dest[size] = strdup( token );
+        dest[size] = Strdup( token );
         if( !dest[size] )
         {
-            free( src );
+            Free( src );
             while( --size )
             {
-                free( dest[size] );
+                Free( dest[size] );
             }
-            free( dest );
+            Free( dest );
             return NULL;
         }
         size++;
@@ -60,7 +60,7 @@ char ** split( const char * s, const char * separators )
     }
 
     dest[size] = NULL;
-    free( src );
+    Free( src );
     return dest;
 }
 
@@ -71,10 +71,10 @@ void free_splitted( char ** splitted )
         size_t idx = 0;
         while( splitted[idx] )
         {
-            free( splitted[idx] );
+            Free( splitted[idx] );
             idx++;
         }
-        free( splitted );
+        Free( splitted );
     }
 }
 

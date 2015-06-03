@@ -20,12 +20,12 @@ string sclr( string s )
 
 string snewn( size_t n )
 {
-    string s = malloc( sizeof(struct _string) );
+    string s = Malloc( sizeof(struct _string) );
     if( !s ) return NULL;
-    s->str = calloc( sizeof(char), n + 1 );
+    s->str = Calloc( sizeof(char), n + 1 );
     if( !s->str )
     {
-        free( s );
+        Free( s );
         return NULL;
     }
     s->bsz = n;
@@ -37,8 +37,8 @@ void sdel( string s )
 {
     if( s )
     {
-        free( s->str );
-        free( s );
+        Free( s->str );
+        Free( s );
     }
 }
 
@@ -142,10 +142,10 @@ static string sexpand( string s, size_t sz )
         char * buf;
         size_t newsz = sz ? sz : s->bsz;
         newsz *= STR_K_EXPAND;
-        buf = calloc( newsz + 1, 1 );
+        buf = Calloc( newsz + 1, 1 );
         if( !buf ) return NULL;
         memcpy( buf, s->str, s->len );
-        free( s->str );
+        Free( s->str );
         s->str = buf;
         s->bsz = newsz;
     }
