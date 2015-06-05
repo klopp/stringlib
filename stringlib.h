@@ -28,6 +28,7 @@ char ** split( const char * s, const char * separators );
 void free_splitted( char ** splitted );
 size_t size_splitted( char ** splitted );
 char * join( char ** splitted, const char * separator );
+char * strbrbrk( const char *s, const char *accept );
 
 #define STR_DEFAULT_LEN 128
 #define STR_K_EXPAND    1.5
