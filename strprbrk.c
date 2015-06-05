@@ -7,7 +7,7 @@
 
 #include "stringlib.h"
 
-char * strbrbrk( const char * s, const char * accept )
+char * strprbrk( const char * s, const char * accept )
 {
     const char * end = s + strlen( s );
     while( end >= s )
