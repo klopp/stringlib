@@ -9,11 +9,11 @@
 
 char * strbrbrk( const char * s, const char * accept )
 {
-    char * end = s + strlen( s );
+    const char * end = s + strlen( s );
     while( end >= s )
     {
         const char *a = accept;
-        while( *a != '\0' )
+        while( *a )
             if( *a++ == *end ) return (char *)end;
         end--;
     }
