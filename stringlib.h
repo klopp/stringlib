@@ -16,6 +16,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdarg.h>
 
 #ifdef __cplusplus
 extern "C"
@@ -30,8 +31,10 @@ size_t size_splitted( char ** splitted );
 char * join( char ** splitted, const char * separator );
 char * strprbrk( const char *s, const char *accept );
 char * strrstr( const char * haystack, const char * needle );
+char * ssprintf( size_t * size, const char * fmt, ... );
+char * _ssprintf( size_t * size, const char * fmt, va_list ap );
 
-#define STR_DEFAULT_LEN 128
+#define STR_DEFAULT_LEN 8
 #define STR_K_EXPAND    1.5
 
 typedef struct _string

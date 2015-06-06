@@ -236,6 +236,19 @@ string sprint( string src, const char * fmt, ... )
 {
     if( src )
     {
+        size_t size;
+        char * str;
+        va_list ap;
+
+        va_start( ap, fmt );
+        str = _ssprintf( &size, fmt, ap );
+        va_end( ap );
+
+        if( !str ) return NULL;
+        Free( src->str );
+        src->str = str;
+        src->bsz = size;
+/*
         va_list ap;
         int len = 0;
 
@@ -249,18 +262,9 @@ string sprint( string src, const char * fmt, ... )
                 break;
             }
             if( !sexpand( src, 0 ) ) return NULL;
-            /*
-             else if( len > -1 )
-             {
-             if( !sexpand( src, src->bsz * 2 ) ) return NULL;
-             }
-             else
-             {
-             return NULL;
-             }
-             */
         }
         src->len = len;
+*/
     }
     return src;
 }
