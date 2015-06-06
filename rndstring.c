@@ -9,8 +9,11 @@
 
 char * rnd_string( char * string, size_t size )
 {
+    /*
+     * Excluded: 0, O, Q, 1, l, I
+     */
     static const char _letters[] =
-            "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789";
+            "AaBbCcDdEeFfGgHhiJjKkLMmNnoPpqRrSsTtUuVvWwXxYyZz23456789";
     size_t i;
 
     if( !string )
