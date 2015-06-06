@@ -25,12 +25,20 @@ extern "C"
 
 size_t chomp( char * s );
 char * rnd_string( char * s, size_t size );
+
 char ** split( const char * s, const char * separators );
 void free_splitted( char ** splitted );
 size_t size_splitted( char ** splitted );
 char * join( char ** splitted, const char * separator );
+/*
+ * Like strrbrk() and strstr(), but search from string end.
+ */
 char * strprbrk( const char *s, const char *accept );
 char * strrstr( const char * haystack, const char * needle );
+/*
+ * ssprintf() allocate new string and format it. Return NULL
+ * on errors. If *size is not NULL set allocated buffer size.
+ */
 char * ssprintf( size_t * size, const char * fmt, ... );
 char * _ssprintf( size_t * size, const char * fmt, va_list ap );
 
@@ -140,11 +148,6 @@ string sprint( string src, const char * fmt, ... );
  * sfgets() read string from FILE
  */
 size_t sfgets( string src, FILE * fin );
-
-/*
- * sexpand() expand internal string buffer to new size
- */
-//string sexpand( string s, size_t sz );
 
 string * ssplitc( const char * s, const char * separators );
 size_t ssize_splitted( string * splitted );

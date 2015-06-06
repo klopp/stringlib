@@ -135,7 +135,7 @@ int scasempc( string a, const char * b )
     return strcasecmp( a->str, b );
 }
 
-static string sexpand( string s, size_t sz )
+static string _sexpand( string s, size_t sz )
 {
     if( s )
     {
@@ -156,7 +156,7 @@ static string _scatc( string dest, const char * src, size_t sz )
 {
     if( dest->len + sz >= dest->bsz )
     {
-        if( !sexpand( dest, dest->bsz + sz ) )
+        if( !_sexpand( dest, dest->bsz + sz ) )
         {
             return NULL;
         }
@@ -171,7 +171,7 @@ string scatch( string dest, char c )
 {
     if( dest->len + 1 >= dest->bsz )
     {
-        if( !sexpand( dest, dest->bsz + 1 ) )
+        if( !_sexpand( dest, dest->bsz + 1 ) )
         {
             return NULL;
         }
@@ -186,7 +186,7 @@ static string _scpyc( string dest, const char * src, size_t sz )
 {
     if( sz >= dest->bsz )
     {
-        if( !sexpand( dest, sz ) )
+        if( !_sexpand( dest, sz ) )
         {
             return NULL;
         }
@@ -283,7 +283,7 @@ size_t sfgets( string src, FILE * fin )
             src->len = len;
             if( src->str[len - 1] != '\n' && !feof( fin ) )
             {
-                if( !sexpand( src, 0 ) ) return src->len;
+                if( !_sexpand( src, 0 ) ) return src->len;
                 last = len;
                 continue;
             }
