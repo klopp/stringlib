@@ -10,21 +10,22 @@
 char * _ssprintf( size_t * size, const char * fmt, va_list ap )
 {
     //va_list ap;
-    int len = 0;
+    //int len = 0;
     size_t bsz = STR_DEFAULT_LEN;
-    size_t newsz;
+    //size_t newsz;
     char * str = Malloc( STR_DEFAULT_LEN );
     char * newstr;
     if( !str ) return NULL;
 
     while( 1 )
     {
-        len = vsnprintf( str, bsz, fmt, ap );
+        size_t newsz;
+        int len = vsnprintf( str, bsz, fmt, ap );
         if( len > -1 && (size_t)len < bsz )
         {
             break;
         }
-        newsz = bsz * STR_K_EXPAND;
+        newsz = bsz * 2;
         newstr = Malloc( newsz );
         if( !newstr )
         {
