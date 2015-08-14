@@ -9,43 +9,24 @@
 
 char * _ssprintf( size_t * size, const char * fmt, va_list ap )
 {
-    //va_list ap;
-    //int len = 0;
-    size_t bsz = STR_DEFAULT_LEN;
-    //size_t newsz;
-    char * str = Malloc( STR_DEFAULT_LEN );
-    char * newstr;
+    char * str;
+    va_list cp;
+    va_copy( cp, ap );
+    size_t bsz = vsnprintf( NULL, 0, fmt, ap );
+    if( bsz == (size_t)-1 ) return NULL;
+    str = Malloc( bsz + 1 );
     if( !str ) return NULL;
-
-    while( 1 )
-    {
-        size_t newsz;
-        int len = vsnprintf( str, bsz, fmt, ap );
-        if( len > -1 && (size_t)len < bsz )
-        {
-            break;
-        }
-        newsz = bsz * 2;
-        newstr = Malloc( newsz );
-        if( !newstr )
-        {
-            Free( str );
-            return NULL;
-        }
-        Free( str );
-        str = newstr;
-        bsz = newsz;
-    }
-    if( size ) *size = bsz;
+    vsprintf( str, fmt, cp );
+    if( size ) *size = bsz + 1;
     return str;
 }
 
 char * ssprintf( size_t * size, const char * fmt, ... )
 {
     va_list ap;
-    char * rc;
+    char * str;
     va_start( ap, fmt );
-    rc = _ssprintf( size, fmt, ap );
+    str = _ssprintf( size, fmt, ap );
     va_end( ap );
-    return rc;
+    return str;
 }

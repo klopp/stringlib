@@ -248,23 +248,6 @@ string sprint( string src, const char * fmt, ... )
         Free( src->str );
         src->str = str;
         src->bsz = size;
-/*
-        va_list ap;
-        int len = 0;
-
-        while( 1 )
-        {
-            va_start( ap, fmt );
-            len = vsnprintf( src->str, src->bsz, fmt, ap );
-            va_end( ap );
-            if( len > -1 && (size_t)len < src->bsz )
-            {
-                break;
-            }
-            if( !sexpand( src, 0 ) ) return NULL;
-        }
-        src->len = len;
-*/
     }
     return src;
 }
