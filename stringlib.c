@@ -247,7 +247,8 @@ string sprint( string src, const char * fmt, ... )
         if( !str ) return NULL;
         Free( src->str );
         src->str = str;
-        src->bsz = size;
+        src->len = src->bsz = size;
+        src->len--;
     }
     return src;
 }
