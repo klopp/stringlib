@@ -11,8 +11,9 @@ char * _ssprintf( size_t * size, const char * fmt, va_list ap )
 {
     char * str;
     va_list cp;
+    size_t bsz;
     va_copy( cp, ap );
-    size_t bsz = vsnprintf( NULL, 0, fmt, ap );
+    bsz = (size_t)vsnprintf( NULL, 0, fmt, ap );
     if( bsz == (size_t)-1 ) return NULL;
     bsz++;
     str = Malloc( bsz );
