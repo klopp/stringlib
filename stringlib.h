@@ -42,7 +42,7 @@ char * strrstr( const char * haystack, const char * needle );
 char * ssprintf( size_t * size, const char * fmt, ... );
 char * _ssprintf( size_t * size, const char * fmt, va_list ap );
 
-#define STR_DEFAULT_LEN 8
+#define STR_DEFAULT_LEN 128
 #define STR_K_EXPAND    1.5
 
 typedef struct _string
