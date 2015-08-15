@@ -141,7 +141,7 @@ static string _sexpand( string s, size_t sz )
     {
         char * buf;
         size_t newsz = sz ? sz : s->bsz;
-        newsz *= STR_K_EXPAND;
+        STR_SZ_EXPAND( newsz );
         buf = Calloc( newsz + 1, 1 );
         if( !buf ) return NULL;
         memcpy( buf, s->str, s->len );
