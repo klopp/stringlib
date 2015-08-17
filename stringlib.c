@@ -44,13 +44,12 @@ void sdel( string s )
 
 size_t schomp( string s )
 {
-    size_t sz = 0;
     if( s )
     {
-        sz = chomp( s->str );
+        s->len = chomp( s->str );
+        return s->len;
     }
-    s->len = sz;
-    return sz;
+    return 0;
 }
 
 #if defined(DEBUG)
