@@ -233,48 +233,53 @@ string scat( string dest, const string src )
 
 string sprint( string src, const char * fmt, ... )
 {
-    if( src )
+    size_t size;
+    char * str;
+    va_list ap;
+
+    if( !src )
     {
-        size_t size;
-        char * str;
-        va_list ap;
-
-        va_start( ap, fmt );
-        str = _ssprintf( &size, fmt, ap );
-        va_end( ap );
-
-        if( !str ) return NULL;
-        Free( src->str );
-        src->str = str;
-        src->len = src->bsz = size;
-        src->len--;
+        src = snew();
+        if( !src ) return NULL;
     }
+
+    va_start( ap, fmt );
+    str = _ssprintf( &size, fmt, ap );
+    va_end( ap );
+
+    if( !str ) return NULL;
+
+    Free( src->str );
+    src->str = str;
+    src->len = src->bsz = size;
+    src->len--;
     return src;
 }
 
 size_t sfgets( string src, FILE * fin )
 {
-    if( src )
+    if( !src )
     {
-        size_t last = 0;
-
-        sclr( src );
-
-        while( fgets( src->str + last, src->bsz - last, fin ) )
-        {
-            size_t len = strlen( src->str );
-            src->len = len;
-            if( src->str[len - 1] != '\n' && !feof( fin ) )
-            {
-                if( !_sexpand( src, 0 ) ) return src->len;
-                last = len;
-                continue;
-            }
-            break;
-        }
-        return src->len;
+        src = snew();
+        if( !src ) return 0;
     }
-    return 0;
+    size_t last = 0;
+
+    sclr( src );
+
+    while( fgets( src->str + last, src->bsz - last, fin ) )
+    {
+        size_t len = strlen( src->str );
+        src->len = len;
+        if( src->str[len - 1] != '\n' && !feof( fin ) )
+        {
+            if( !_sexpand( src, 0 ) ) return src->len;
+            last = len;
+            continue;
+        }
+        break;
+    }
+    return src->len;
 }
 
 string sfromnchar( const char * src, size_t sz )
