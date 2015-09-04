@@ -7,6 +7,11 @@
 
 #include "stringlib.h"
 
+/*
+ * FIXME разбивает только по первому символу. если, например, задать в качестве
+ * seperetors один пробел, а строка будет вида "a   b", то получится: "a", "  b"
+ */
+
 size_t size_splitted( char ** splitted )
 {
     size_t idx = 0;
