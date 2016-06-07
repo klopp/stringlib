@@ -7,79 +7,65 @@
 
 #include "stringlib.h"
 
-/*
- * FIXME разбивает только по первому символу. если, например, задать в качестве
- * seperetors один пробел, а строка будет вида "a   b", то получится: "a", "  b"
- */
-
-size_t size_splitted( char ** splitted )
-{
+size_t size_splitted(char ** splitted) {
     size_t idx = 0;
-    while( splitted[idx] )
+    while (splitted[idx])
         idx++;
     return idx;
 }
 
-char ** split( const char * s, const char * separators )
-{
+char ** split(const char * s, const char * separators) {
     char * token;
     size_t size = 0;
     char ** dest = NULL;
     size_t ssize = strlen(s) + 1;
-    char * src = Malloc( ssize );
-    if( !src ) return NULL;
+    char * src = Malloc(ssize);
+    if (!src)
+        return NULL;
 
-    memcpy( src, s, ssize );
-    token = strtok( src, separators );
-    while( token )
-    {
+    memcpy(src, s, ssize);
+    token = strtok(src, separators);
+    while (token) {
         size++;
-        token = strtok( NULL, separators );
+        token = strtok( NULL, separators);
     }
 
-    dest = Malloc( sizeof(char *) * (size + 1) );
-    if( !dest )
-    {
-        Free( src );
+    dest = Malloc(sizeof(char *) * (size + 1));
+    if (!dest) {
+        Free(src);
         return NULL;
     }
 
-    memcpy( src, s, ssize );
-    token = strtok( src, separators );
+    memcpy(src, s, ssize);
+    token = strtok(src, separators);
     size = 0;
-    while( token )
-    {
-        dest[size] = Strdup( token );
-        if( !dest[size] )
-        {
-            Free( src );
-            while( --size )
-            {
-                Free( dest[size] );
+    while (token) {
+        dest[size] = Strdup(token);
+        if (!dest[size]) {
+            Free(src);
+            while (--size) {
+                Free(dest[size]);
             }
-            Free( dest );
+            Free(dest);
             return NULL;
         }
         size++;
-        token = strtok( NULL, separators );
+        token = strtok( NULL, separators);
     }
 
     dest[size] = NULL;
-    Free( src );
+    Free(src);
     return dest;
 }
 
-void free_splitted( char ** splitted )
-{
-    if( splitted )
-    {
+void free_splitted(char ** splitted) {
+    if (splitted) {
         size_t idx = 0;
-        while( splitted[idx] )
-        {
-            Free( splitted[idx] );
+        while (splitted[idx]) {
+            Free(splitted[idx]);
             idx++;
         }
-        Free( splitted );
+        Free(splitted);
     }
 }
 
