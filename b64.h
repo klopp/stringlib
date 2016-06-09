@@ -10,8 +10,8 @@
 
 #include "stringlib.h"
 
-string base64_encode( const char * buf, size_t sz );
-string base64_sencode( const char * s );
-string base64_fencode( FILE * file );
+string base64_encode(const char *buf, size_t sz);
+string base64_sencode(const char *s);
+string base64_fencode(FILE *file);
 
 #endif /* B64_H_ */

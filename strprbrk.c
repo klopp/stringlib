@@ -7,14 +7,14 @@
 
 #include "stringlib.h"
 
-char * strprbrk( const char * s, const char * accept )
-{
-    const char * end = s + strlen( s );
-    while( end >= s )
-    {
+char *strprbrk(const char *s, const char *accept) {
+    const char *end = s + strlen(s);
+    while(end >= s) {
         const char *a = accept;
-        while( *a )
-            if( *a++ == *end ) return (char *)end;
+        while(*a)
+            if(*a++ == *end) {
+                return (char *)end;
+            }
         end--;
     }
     return NULL;

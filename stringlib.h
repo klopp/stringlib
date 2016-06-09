@@ -23,57 +23,56 @@ extern "C"
 {
 #endif
 
-size_t chomp( char * s );
-char * rnd_string( char * s, size_t size );
+size_t chomp(char *s);
+char *rnd_string(char *s, size_t size);
 
-char ** split( const char * s, const char * separators );
-void free_splitted( char ** splitted );
-size_t size_splitted( char ** splitted );
-char * join( char ** splitted, const char * separator );
+char **split(const char *s, const char *separators);
+void free_splitted(char **splitted);
+size_t size_splitted(char **splitted);
+char *join(char **splitted, const char *separator);
 /*
  * Like strrbrk() and strstr(), but search from string end.
  */
-char * strprbrk( const char *s, const char *accept );
-char * strrstr( const char * haystack, const char * needle );
+char *strprbrk(const char *s, const char *accept);
+char *strrstr(const char *haystack, const char *needle);
 /*
  * ssprintf() allocate new string and format it. Return NULL
  * on errors. If *size is not NULL set allocated buffer size.
  */
-char * ssprintf( size_t * size, const char * fmt, ... );
-char * _ssprintf( size_t * size, const char * fmt, va_list ap );
+char *ssprintf(size_t *size, const char *fmt, ...);
+char *_ssprintf(size_t *size, const char *fmt, va_list ap);
 
 #define STR_DEFAULT_LEN         128
 #define STR_SZ_EXPAND( sz )     (sz) += (sz) / 2
 
-typedef struct _string
-{
+typedef struct _string {
     size_t bsz;
     size_t len;
-    char * str;
-}*string;
+    char *str;
+} *string;
 
 /*
  * snewn() create string with initial buffer size
  */
-string snewn( size_t sz );
+string snewn(size_t sz);
 /*
  * sfromstr(), sfromchar() create string and copy content from 'src'
  */
-string sfromchar( const char * src );
-string sfromstr( const string src );
+string sfromchar(const char *src);
+string sfromstr(const string src);
 /*
  * sfromnstr(), sfromchar() create string and copy N bytes of 'src'
  */
-string sfromnstr( const string src, size_t N );
-string sfromnchar( const char * src, size_t sz );
+string sfromnstr(const string src, size_t N);
+string sfromnchar(const char *src, size_t sz);
 /*
  * sclr() clear string
  */
-string sclr( string s );
+string sclr(string s);
 /*
  * sdel()       delete string
  */
-void sdel( string src );
+void sdel(string src);
 /*
  * snew()       create new string with default buffer size
  * slen()       return string length
@@ -86,14 +85,14 @@ void sdel( string src );
  *
  */
 #if defined(DEBUG)
-string snew( void );
-size_t slen( const string s );
-const char * sstr( const string s );
-char sat( const string src, size_t at );
-string sset( string src, size_t at, char c );
-int scmp( const string a, const string b );
-int scasemp( const string a, const string b );
-string * ssplit( const string s, const char * separators );
+string snew(void);
+size_t slen(const string s);
+const char *sstr(const string s);
+char sat(const string src, size_t at);
+string sset(string src, size_t at, char c);
+int scmp(const string a, const string b);
+int scasemp(const string a, const string b);
+string *ssplit(const string s, const char *separators);
 #else
 # define snew() snewn((STR_DEFAULT_LEN))
 # define slen( s ) (s)->len
@@ -105,29 +104,29 @@ string * ssplit( const string s, const char * separators );
 # define ssplit( s, separators ) ssplitc( (s), (separators) )
 #endif
 
-size_t schomp( string s );
+size_t schomp(string s);
 /*
  * scmp(), scmpc(), scasecmp(), scasecmpc() compare strings
  */
-int scmpc( string a, const char * b );
-int scasempc( string a, const char * b );
+int scmpc(string a, const char *b);
+int scasempc(string a, const char *b);
 /*
  * scpy(), scpyc(), sncpy(), sncpyc() copy string or 'n' bytes of string
  */
-string scpy( string dest, const string src );
-string sncpy( string dest, const string src, size_t n );
-string scpyc( string dest, const char * src );
+string scpy(string dest, const string src);
+string sncpy(string dest, const string src, size_t n);
+string scpyc(string dest, const char *src);
 /*
  * scat(), scatc() sppend string 'src'
  */
-string scat( string dest, const string src );
-string scatc( string dest, const char * src );
-string xscat( string dest, ... );
-string xscatc( string dest, ... );
+string scat(string dest, const string src);
+string scatc(string dest, const char *src);
+string xscat(string dest, ...);
+string xscatc(string dest, ...);
 /*
  * scatch() add char 'c' to string
  */
-string scatch( string dest, char c );
+string scatch(string dest, char c);
 /*
  * scrop() reduce string length to 'n' bytes
  */
@@ -143,17 +142,17 @@ string sltrim(string s, size_t n);
 /*
  * sprint() make format string
  */
-string sprint( string src, const char * fmt, ... );
+string sprint(string src, const char *fmt, ...);
 /*
  * sfgets() read string from FILE
  */
-size_t sfgets( string src, FILE * fin );
+size_t sfgets(string src, FILE *fin);
 
-string * ssplitc( const char * s, const char * separators );
-size_t ssize_splitted( string * splitted );
-void sfree_splitted( string * splitted );
-string sjoin( string * splitted, const char * separator );
-string sjoinc( char ** splitted, const char * separator );
+string *ssplitc(const char *s, const char *separators);
+size_t ssize_splitted(string *splitted);
+void sfree_splitted(string *splitted);
+string sjoin(string *splitted, const char *separator);
+string sjoinc(char **splitted, const char *separator);
 
 #ifdef __cplusplus
 }

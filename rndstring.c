@@ -7,24 +7,21 @@
 
 #include "stringlib.h"
 
-char * rnd_string( char * string, size_t size )
-{
+char *rnd_string(char *string, size_t size) {
     /*
      * Excluded: 0, O, Q, 1, l, I
      */
     static const char _letters[] =
-            "AaBbCcDdEeFfGgHhiJjKkLMmNnoPpqRrSsTtUuVvWwXxYyZz23456789";
+        "AaBbCcDdEeFfGgHhiJjKkLMmNnoPpqRrSsTtUuVvWwXxYyZz23456789";
     size_t i;
-
-    if( !string )
-    {
-        string = Malloc( size + 1 );
-        if( !string ) return NULL;
+    if(!string) {
+        string = Malloc(size + 1);
+        if(!string) {
+            return NULL;
+        }
     }
-
-    for( i = 0; i < size - 1; i++ )
-    {
-        string[i] = _letters[rand() % (sizeof(_letters)-1)];
+    for(i = 0; i < size - 1; i++) {
+        string[i] = _letters[rand() % (sizeof(_letters) - 1)];
     }
     string[i] = 0;
     return string;

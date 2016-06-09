@@ -7,46 +7,40 @@
 
 #include "stringlib.h"
 
-string sjoin( string * splitted, const char * separator )
-{
+string sjoin(string *splitted, const char *separator) {
     size_t idx = 0;
     string dest = snew();
-    if( !dest ) return NULL;
-
-    while( splitted[idx] )
-    {
-        if( !scat( dest, splitted[idx] ) )
-        {
-            sdel( dest );
+    if(!dest) {
+        return NULL;
+    }
+    while(splitted[idx]) {
+        if(!scat(dest, splitted[idx])) {
+            sdel(dest);
             return NULL;
         }
         idx++;
-        if( splitted[idx] && !scatc( dest, separator ) )
-        {
-            sdel( dest );
+        if(splitted[idx] && !scatc(dest, separator)) {
+            sdel(dest);
             return NULL;
         }
     }
     return dest;
 }
 
-string sjoinc( char ** splitted, const char * separator )
-{
+string sjoinc(char **splitted, const char *separator) {
     size_t idx = 0;
     string dest = snew();
-    if( !dest ) return NULL;
-
-    while( splitted[idx] )
-    {
-        if( !scatc( dest, splitted[idx] ) )
-        {
-            sdel( dest );
+    if(!dest) {
+        return NULL;
+    }
+    while(splitted[idx]) {
+        if(!scatc(dest, splitted[idx])) {
+            sdel(dest);
             return NULL;
         }
         idx++;
-        if( splitted[idx] && !scatc( dest, separator ) )
-        {
-            sdel( dest );
+        if(splitted[idx] && !scatc(dest, separator)) {
+            sdel(dest);
             return NULL;
         }
     }

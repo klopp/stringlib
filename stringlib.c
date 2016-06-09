@@ -9,7 +9,7 @@
 #include <stdarg.h>
 
 string sclr(string s) {
-    if (s && s->str) {
+    if(s && s->str) {
         memset(s->str, 0, s->bsz);
         s->len = 0;
     }
@@ -18,10 +18,11 @@ string sclr(string s) {
 
 string snewn(size_t n) {
     string s = Malloc(sizeof(struct _string));
-    if (!s)
+    if(!s) {
         return NULL;
+    }
     s->str = Calloc(sizeof(char), n + 1);
-    if (!s->str) {
+    if(!s->str) {
         Free(s);
         return NULL;
     }
@@ -31,14 +32,14 @@ string snewn(size_t n) {
 }
 
 void sdel(string s) {
-    if (s) {
+    if(s) {
         Free(s->str);
         Free(s);
     }
 }
 
 size_t schomp(string s) {
-    if (s) {
+    if(s) {
         s->len = chomp(s->str);
         return s->len;
     }
@@ -47,41 +48,36 @@ size_t schomp(string s) {
 
 #if defined(DEBUG)
 
-string snew( void )
-{
-    return snewn( STR_DEFAULT_LEN );
+string snew(void) {
+    return snewn(STR_DEFAULT_LEN);
 }
 
-size_t slen( const string s )
-{
+size_t slen(const string s) {
     return s ? s->len : 0;
 }
 
-const char * sstr( const string s )
-{
+const char *sstr(const string s) {
     return s ? s->str : NULL;
 }
 
-char sat( const string s, size_t at )
-{
+char sat(const string s, size_t at) {
     return (!s || !s->str) ? 0 : (at > s->len ? 0 : s->str[at]);
 }
-int scmp( const string a, const string b )
-{
-    return scmpc( a, b ? b->str : NULL );
+int scmp(const string a, const string b) {
+    return scmpc(a, b ? b->str : NULL);
 }
 
-int scasecmp( const string a, const string b )
-{
-    return scasempc( a, b ? b->str : NULL );
+int scasecmp(const string a, const string b) {
+    return scasempc(a, b ? b->str : NULL);
 }
 
 #endif
 
 string scrop(string s, size_t n) {
-    if (!s)
+    if(!s) {
         return NULL;
-    if (n < s->len) {
+    }
+    if(n < s->len) {
         s->len = n;
         s->str[s->len] = 0;
     }
@@ -89,57 +85,67 @@ string scrop(string s, size_t n) {
 }
 
 string strim(string s, size_t n) {
-    if (!s)
+    if(!s) {
         return NULL;
-    if (s->len > n)
+    }
+    if(s->len > n) {
         s->len -= n;
-    else
+    } else {
         s->len = 0;
+    }
     s->str[s->len] = 0;
     return s;
 }
 
 string sltrim(string s, size_t n) {
-    if (!s)
+    if(!s) {
         return NULL;
-    if (s->len > n) {
+    }
+    if(s->len > n) {
         s->len -= n;
         memmove(s->str, s->str + n, s->len);
-    }
-    else
+    } else {
         s->len = 0;
+    }
     s->str[s->len] = 0;
     return s;
 }
 
-int scmpc(string a, const char * b) {
-    if ((!a || !a->str) && (!b))
+int scmpc(string a, const char *b) {
+    if((!a || !a->str) && (!b)) {
         return 0;
-    if ((a && a->str) && (!b))
+    }
+    if((a && a->str) && (!b)) {
         return 1;
-    if ((!a || !a->str) && (b))
+    }
+    if((!a || !a->str) && (b)) {
         return -1;
+    }
     return strcmp(a->str, b);
 }
 
-int scasempc(string a, const char * b) {
-    if ((!a || !a->str) && (!b))
+int scasempc(string a, const char *b) {
+    if((!a || !a->str) && (!b)) {
         return 0;
-    if ((a && a->str) && (!b))
+    }
+    if((a && a->str) && (!b)) {
         return 1;
-    if ((!a || !a->str) && (b))
+    }
+    if((!a || !a->str) && (b)) {
         return -1;
+    }
     return strcasecmp(a->str, b);
 }
 
 static string _sexpand(string s, size_t sz) {
-    if (s) {
-        char * buf;
+    if(s) {
+        char *buf;
         size_t newsz = sz ? sz : s->bsz;
         STR_SZ_EXPAND(newsz);
         buf = Calloc(newsz + 1, 1);
-        if (!buf)
+        if(!buf) {
             return NULL;
+        }
         memcpy(buf, s->str, s->len);
         Free(s->str);
         s->str = buf;
@@ -148,9 +154,9 @@ static string _sexpand(string s, size_t sz) {
     return s;
 }
 
-static string _scatc(string dest, const char * src, size_t sz) {
-    if (dest->len + sz >= dest->bsz) {
-        if (!_sexpand(dest, dest->bsz + sz)) {
+static string _scatc(string dest, const char *src, size_t sz) {
+    if(dest->len + sz >= dest->bsz) {
+        if(!_sexpand(dest, dest->bsz + sz)) {
             return NULL;
         }
     }
@@ -161,8 +167,8 @@ static string _scatc(string dest, const char * src, size_t sz) {
 }
 
 string scatch(string dest, char c) {
-    if (dest->len + 1 >= dest->bsz) {
-        if (!_sexpand(dest, dest->bsz + 1)) {
+    if(dest->len + 1 >= dest->bsz) {
+        if(!_sexpand(dest, dest->bsz + 1)) {
             return NULL;
         }
     }
@@ -172,9 +178,9 @@ string scatch(string dest, char c) {
     return dest;
 }
 
-static string _scpyc(string dest, const char * src, size_t sz) {
-    if (sz >= dest->bsz) {
-        if (!_sexpand(dest, sz)) {
+static string _scpyc(string dest, const char *src, size_t sz) {
+    if(sz >= dest->bsz) {
+        if(!_sexpand(dest, sz)) {
             return NULL;
         }
     }
@@ -184,61 +190,64 @@ static string _scpyc(string dest, const char * src, size_t sz) {
     return dest;
 }
 
-string scpyc(string dest, const char * src) {
-    if (!src)
+string scpyc(string dest, const char *src) {
+    if(!src) {
         return dest;
+    }
     return _scpyc(dest, src, strlen(src));
 }
 
-string sncpyc(string dest, const char * src, size_t n) {
-    if (!src)
+string sncpyc(string dest, const char *src, size_t n) {
+    if(!src) {
         return dest;
+    }
     return _scpyc(dest, src, n);
 }
 
 string scpy(string dest, const string src) {
-    if (!src)
+    if(!src) {
         return dest;
+    }
     return _scpyc(dest, src->str, src->len);
 }
 
 string sncpy(string dest, const string src, size_t n) {
-    if (!src)
+    if(!src) {
         return dest;
+    }
     return sncpyc(dest, src->str, n);
 }
 
-string scatc(string dest, const char * src) {
-    if (!src || !*src)
+string scatc(string dest, const char *src) {
+    if(!src || !*src) {
         return dest;
+    }
     return _scatc(dest, src, strlen(src));
 }
 string scat(string dest, const string src) {
-    if (!src)
+    if(!src) {
         return dest;
+    }
     return _scatc(dest, src->str, src->len);
 }
 
-string sprint(string src, const char * fmt, ...) {
+string sprint(string src, const char *fmt, ...) {
     size_t size;
-    char * str;
+    char *str;
     va_list ap;
-
-    if (!src) {
+    if(!src) {
         src = snew();
-        if (!src)
+        if(!src) {
             return NULL;
+        }
     }
-
     va_start(ap, fmt);
     str = _ssprintf(&size, fmt, ap);
     va_end(ap);
-
-    if (!str) {
+    if(!str) {
         sdel(src);
         return NULL;
     }
-
     Free(src->str);
     src->str = str;
     src->len = src->bsz = size;
@@ -246,22 +255,22 @@ string sprint(string src, const char * fmt, ...) {
     return src;
 }
 
-size_t sfgets(string src, FILE * fin) {
-    if (!src) {
+size_t sfgets(string src, FILE *fin) {
+    if(!src) {
         src = snew();
-        if (!src)
+        if(!src) {
             return 0;
+        }
     }
     size_t last = 0;
-
     sclr(src);
-
-    while (fgets(src->str + last, src->bsz - last, fin)) {
+    while(fgets(src->str + last, src->bsz - last, fin)) {
         size_t len = strlen(src->str);
         src->len = len;
-        if (src->str[len - 1] != '\n' && !feof(fin)) {
-            if (!_sexpand(src, 0))
+        if(src->str[len - 1] != '\n' && !feof(fin)) {
+            if(!_sexpand(src, 0)) {
                 return src->len;
+            }
             last = len;
             continue;
         }
@@ -270,12 +279,12 @@ size_t sfgets(string src, FILE * fin) {
     return src->len;
 }
 
-string sfromnchar(const char * src, size_t sz) {
+string sfromnchar(const char *src, size_t sz) {
     string s = snew();
     return _scpyc(s, src, sz);
 }
 
-string sfromchar(const char * src) {
+string sfromchar(const char *src) {
     return sfromnchar(src, strlen(src));
 }
 
@@ -292,8 +301,8 @@ string xscat(string dest, ...) {
     string src;
     va_start(ap, dest);
     src = va_arg(ap, string);
-    while (src) {
-        if (!_scatc(dest, src->str, src->len)) {
+    while(src) {
+        if(!_scatc(dest, src->str, src->len)) {
             va_end(ap);
             return NULL;
         }
@@ -305,11 +314,11 @@ string xscat(string dest, ...) {
 
 string xscatc(string dest, ...) {
     va_list ap;
-    char * src;
+    char *src;
     va_start(ap, dest);
     src = va_arg(ap, char *);
-    while (src) {
-        if (!_scatc(dest, src, strlen(src))) {
+    while(src) {
+        if(!_scatc(dest, src, strlen(src))) {
             va_end(ap);
             return NULL;
         }

@@ -10,10 +10,10 @@
 
 #include <stdlib.h>
 
-unsigned long asc2ulong(const char * s, unsigned base, int ignore_errors);
-long asc2long(const char * s, unsigned base, int ignore_errors);
-unsigned long long asc2ullong(const char * s, unsigned base, int ignore_errors);
-long long asc2llong(const char * s, unsigned base, int ignore_errors);
+unsigned long asc2ulong(const char *s, unsigned base, int ignore_errors);
+long asc2long(const char *s, unsigned base, int ignore_errors);
+unsigned long long asc2ullong(const char *s, unsigned base, int ignore_errors);
+long long asc2llong(const char *s, unsigned base, int ignore_errors);
 
 #define _asc2ulong(s, base)     strtoul( (s), NULL, (base) )
 #define _asc2long(s, base)      strtol( (s), NULL, (base) )

@@ -10,6 +10,6 @@
 
 #include "stringlib.h"
 
-string qp_encode( const char * buf, int wrap );
+string qp_encode(const char *buf, int wrap);
 
 #endif /* QP_H_ */
