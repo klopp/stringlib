@@ -23,6 +23,7 @@ extern "C"
 {
 #endif
 
+char *strdup(const char *src);
 size_t chomp(char *s);
 char *rnd_string(char *s, size_t size);
 

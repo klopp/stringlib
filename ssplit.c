@@ -10,7 +10,7 @@
 #if defined(DEBUG)
 
 string *ssplit(const string s, const char *separators) {
-    return s ? splitc(s, separators) : NULL;
+    return s ? ssplitc(sstr(s), separators) : NULL;
 }
 
 #endif

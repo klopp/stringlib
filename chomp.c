@@ -10,7 +10,7 @@
 size_t chomp(char *s) {
     size_t sz = strlen(s);
     char *ptr = s;
-    while(*ptr && (unsigned char)*ptr <= ' ') {
+    while(*ptr && (unsigned char) *ptr <= ' ') {
         ptr++;
         sz--;
     }
@@ -19,7 +19,7 @@ size_t chomp(char *s) {
     }
     if(sz) {
         ptr = s + sz - 1;
-        while(sz && (unsigned char)*ptr <= ' ') {
+        while(sz && (unsigned char) *ptr <= ' ') {
             *ptr = 0;
             ptr--;
             sz--;
